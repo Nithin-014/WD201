@@ -26,22 +26,23 @@ const todoList = () => {
   };
 
   const toDisplayableList = (list) => {
-    const currentDate = new Date().toISOString().split("T")[0];
-    let output = "";
-  
-    list.forEach((item) => {
-      if (item.dueDate === currentDate) {
-        const completedOnSameDate = item.completed && item.dueDate === currentDate;
-        output += `[${completedOnSameDate ? 'x' : ' '}] ${item.title}`;
-      } else if (item.dueDate < currentDate) {
-        output += `[ ] ${item.title} ${item.dueDate}`;
-      } else {
-        output += `[ ] ${item.title} ${item.dueDate}`;
-      }
-    });
-  
-    return output;
-  };
+  const currentDate = new Date().toISOString().split("T")[0];
+  let output = "";
+
+  list.forEach((item) => {
+    if (item.dueDate === currentDate) {
+      const completedOnSameDate = item.completed && item.dueDate === currentDate;
+      output += `[${completedOnSameDate ? 'x' : ' '}] ${item.title}\n`;
+    } else if (item.dueDate < currentDate) {
+      output += `[ ] ${item.title} ${item.dueDate}\n`;
+    } else {
+      output += `[ ] ${item.title} ${item.dueDate}\n`;
+    }
+  });
+
+  return output.trim(); // Trims extra spaces at the beginning and end
+};
+
   
   
   
