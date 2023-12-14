@@ -16,8 +16,9 @@ const todoList = () => {
 
   const dueToday = () => {
     const currentDate = new Date().toISOString().split("T")[0];
-    return all.filter((item) => !item.completed && item.dueDate === currentDate);
+    return all.filter((item) => item.dueDate === currentDate);
   };
+  
 
   const dueLater = () => {
     const currentDate = new Date().toISOString().split("T")[0];
@@ -25,16 +26,24 @@ const todoList = () => {
   };
 
   const toDisplayableList = (list) => {
-    let output="";
+    const currentDate = new Date().toISOString().split("T")[0];
+    let output = "";
+  
     list.forEach((item) => {
-      if (item.dueDate === new Date().toISOString().split("T")[0]) {
-        output += `[x] ${item.title}\n`;
+      if (item.completed || item.dueDate === currentDate) {
+        const completedOnSameDate = item.completed && item.dueDate === currentDate;
+        output += `[${completedOnSameDate ? 'X' : ' '}] ${item.title} ${item.dueDate}\n`;
+      } else if (!item.completed && item.dueDate < currentDate) {
+        output += `[ ] ${item.title} ${item.dueDate}\n`;
       } else {
         output += `[ ] ${item.title} ${item.dueDate}\n`;
       }
     });
-    return output
+  
+    return output;
   };
+  
+  
   
 
   return {
@@ -47,6 +56,7 @@ const todoList = () => {
     toDisplayableList,
   };
 };
+
 
 
 // ... [Rest of the code remains the same]
