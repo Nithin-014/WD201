@@ -32,7 +32,7 @@ const todoList = () => {
     list.forEach((item) => {
       if (item.completed || item.dueDate === currentDate) {
         const completedOnSameDate = item.completed && item.dueDate === currentDate;
-        output += `[${completedOnSameDate ? 'X' : ' '}] ${item.title} ${item.dueDate}\n`;
+        output += `[${completedOnSameDate ? 'X' : ' '}] ${item.title} \n`;
       } else if (!item.completed && item.dueDate < currentDate) {
         output += `[ ] ${item.title} ${item.dueDate}\n`;
       } else {
