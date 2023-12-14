@@ -25,10 +25,15 @@ const todoList = () => {
   };
 
   const toDisplayableList = (list) => {
-    return list.map((item) => {
-      const completionStatus = item.completed ? "[x]" : "[ ]";
-      return `${completionStatus} ${item.title} ${item.dueDate}`;
+    let output="";
+    list.forEach((item) => {
+      if (item.dueDate === new Date().toISOString().split("T")[0]) {
+        output += `[x] ${item.title}\n`;
+      } else {
+        output += `[ ] ${item.title} ${item.dueDate}\n`;
+      }
     });
+    return output
   };
   
 
