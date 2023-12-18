@@ -32,7 +32,7 @@ describe("TodoList Test Suite", () => {
   });
 
   test("Retrieval of due today items", () => {
-    const dueTodayTodo = { title: 'Clean room', dueDate: '2023-12-17', completed: false };
+    const dueTodayTodo = { title: 'Clean room', dueDate: '2023-12-19', completed: false };
     todo.add(dueTodayTodo);
 
     const dueTodayItems = todo.dueToday();
@@ -42,7 +42,7 @@ describe("TodoList Test Suite", () => {
   });
 
   test("Retrieval of due later items", () => {
-    const dueLaterTodo = { title: 'Call dentist', dueDate: '2023-12-18', completed: false };
+    const dueLaterTodo = { title: 'Call dentist', dueDate: '2023-12-20', completed: false };
     todo.add(dueLaterTodo);
 
     const dueLaterItems = todo.dueLater();
