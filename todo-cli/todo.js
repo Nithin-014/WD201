@@ -14,10 +14,10 @@ const todoList = () => {
 };
 
 const dueToday = () => {
-  const currentDate = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  const currentDate = new Date().toISOString().split('T')[0]; 
   console.log('Current Date:', currentDate);
   const todayItems = all.filter((item) => {
-      const dueDate = new Date(item.dueDate).toISOString().split('T')[0]; // Convert item's due date to the same format
+      const dueDate = new Date(item.dueDate).toISOString().split('T')[0];
       return dueDate === currentDate;
   });
   console.log('Items Due Today:', todayItems);
@@ -25,10 +25,10 @@ const dueToday = () => {
 };
 
 const dueLater = () => {
-  const currentDate = new Date().toISOString().split('T')[0]; // Get today's date in YYYY-MM-DD format
+  const currentDate = new Date().toISOString().split('T')[0]; 
   console.log('Current Date:', currentDate);
   const laterItems = all.filter((item) => {
-      const dueDate = new Date(item.dueDate).toISOString().split('T')[0]; // Convert item's due date to the same format
+      const dueDate = new Date(item.dueDate).toISOString().split('T')[0]; 
       return new Date(dueDate) > new Date(currentDate);
   });
   console.log('Items Due Later:', laterItems);
@@ -52,7 +52,7 @@ const dueLater = () => {
       }
     });
   
-    return output.trim(); // Trims extra spaces at the beginning and end
+    return output.trim(); 
   };
   
 
@@ -68,44 +68,3 @@ const dueLater = () => {
 };
 
 module.exports = todoList;
-
-// const todos = todoList();
-
-// const formattedDate = d => {
-//   return d.toISOString().split("T")[0]
-// }
-
-// var dateToday = new Date()
-// const today = formattedDate(dateToday)
-// const yesterday = formattedDate(
-//   new Date(new Date().setDate(dateToday.getDate() - 1))
-// )
-// const tomorrow = formattedDate(
-//   new Date(new Date().setDate(dateToday.getDate() + 1))
-// )
-
-// todos.add({ title: 'Submit assignment', dueDate: yesterday, completed: false })
-// todos.add({ title: 'Pay rent', dueDate: today, completed: true })
-// todos.add({ title: 'Service Vehicle', dueDate: today, completed: false })
-// todos.add({ title: 'File taxes', dueDate: tomorrow, completed: false })
-// todos.add({ title: 'Pay electric bill', dueDate: tomorrow, completed: false })
-
-// console.log("My Todo-list\n")
-
-// console.log("Overdue")
-// var overdues = todos.overdue()
-// var formattedOverdues = todos.toDisplayableList(overdues)
-// console.log(formattedOverdues)
-// console.log("\n")
-
-// console.log("Due Today")
-// let itemsDueToday = todos.dueToday()
-// let formattedItemsDueToday = todos.toDisplayableList(itemsDueToday)
-// console.log(formattedItemsDueToday)
-// console.log("\n")
-
-// console.log("Due Later")
-// let itemsDueLater = todos.dueLater()
-// let formattedItemsDueLater = todos.toDisplayableList(itemsDueLater)
-// console.log(formattedItemsDueLater)
-// console.log("\n\n")
