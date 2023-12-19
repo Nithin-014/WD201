@@ -1,62 +1,46 @@
-const createTodoList = () => {
-  const tasks = [];
-  
-  const addTask = (newTask) => {
-    tasks.push(newTask);
-  };
+/* eslint-disable no-undef */
+const todoList = () => {
+  all = []
+  const add = (todoItem) => {
+    all.push(todoItem)
+  }
+  const markAsComplete = (index) => {
+    all[index].completed = true
+  }
 
-  const markTaskAsComplete = (index) => {
-    tasks[index].isCompleted = true;
-  };
+  const overdue = () => {
+    return all.filter((item) => item.dueDate < new Date().toLocaleDateString("en-CA"));
+  }
 
-  const getOverdueTasks = () => {
-    const currentDate = new Date();
-    return tasks.filter((task) => new Date(task.dueDate) < currentDate);
-  };
+  const dueToday = () => {
+    return all.filter((item)=> item.dueDate === new Date().toLocaleDateString("en-CA"));
+  }
 
-  const getTasksDueToday = () => {
-    const todayDate = new Date().toISOString().split('T')[0];
-    return tasks.filter((task) => {
-      const taskDueDate = new Date(task.dueDate).toISOString().split('T')[0];
-      return taskDueDate === todayDate;
-    });
-  };
+  const dueLater = () => {
+    return all.filter((item)=> item.dueDate > new Date().toLocaleDateString("en-CA"));
+  }
 
-  const getTasksDueLater = () => {
-    const currentDate = new Date().toISOString().split('T')[0];
-    return tasks.filter((task) => {
-      const taskDueDate = new Date(task.dueDate).toISOString().split('T')[0];
-      return new Date(taskDueDate) > new Date(currentDate);
-    });
-  };
 
-  const formatTasksForDisplay = (taskList) => {
-    const currentDateString = new Date().toISOString().split('T')[0];
-    let formattedOutput = '';
-
-    taskList.forEach((task) => {
-      if (task.dueDate === currentDateString) {
-        const isCompletedOnSameDate = task.isCompleted && task.dueDate === currentDateString;
-        formattedOutput += `[${isCompletedOnSameDate ? 'x' : ' '}] ${task.title}\n`;
-      } else if (task.dueDate < currentDateString) {
-        formattedOutput += `[ ] ${task.title} ${task.dueDate}\n`;
-      } else {
-        formattedOutput += `[ ] ${task.title} ${task.dueDate}\n`;
-      }
-    });
-
-    return formattedOutput.trim();
+  const toDisplayableList = (list) => {
+    const completionStatus = item.completed ? "[x]" : "";
+    const displayedDate =
+      item.dueDate === new Date().toISOString().slice(0, 10)
+        ? ""
+        : item.dueDate;
+    return list.map(
+      (item) => $(completionStatus) + $(item.title) + $(displayedDate)
+    );
   };
 
   return {
-    tasks,
-    addTask,
-    markTaskAsComplete,
-    getOverdueTasks,
-    getTasksDueToday,
-    getTasksDueLater,
-    formatTasksForDisplay,
+    all,
+    add,
+    markAsComplete,
+    overdue,
+    dueToday,
+    dueLater,
+    toDisplayableList
   };
 };
 
-module.exports = createTodoList;
+module.exports = todoList;
