@@ -1,53 +1,50 @@
-/* eslint-disable no-undef */
-const todoList = require("../todo");
-
-describe("TodoList Test Suite", () => {
-  let todo;
+describe("Tests for TodoList Operations", () => {
+  let todoList;
 
   beforeEach(() => {
-    todo = todoList();
+    todoList = initializeTodoList();
   });
 
-  test("Creating a new todo", () => {
+  test("Adding a New Todo", () => {
     const newTodo = { title: "Buy groceries", dueDate: '2023-12-15' };
-    todo.add(newTodo);
-    expect(todo.all.length).toBe(1);
-    expect(todo.all[0]).toEqual(newTodo);
+    todoList.add(newTodo);
+    expect(todoList.all.length).toBe(1);
+    expect(todoList.all[0]).toEqual(newTodo);
   });
 
-  test("Marking a todo as completed", () => {
-    const newTodo = { title: 'Finish report', dueDate: '2023-12-14', completed: false };
-    todo.add(newTodo);
-    todo.markAsComplete(0);
+  test("Marking a Todo as Completed", () => {
+    const unfinishedTodo = { title: 'Finish report', dueDate: '2023-12-14', completed: false };
+    todoList.add(unfinishedTodo);
+    todoList.markAsComplete(0);
 
-    expect(todo.all[0].completed).toBe(true);
+    expect(todoList.all[0].completed).toBe(true);
   });
 
-  test("Retrieval of overdue items", () => {
-    const overdueTodo = { title: 'Pay bills', dueDate: '2023-12-12', completed: false };
-    todo.add(overdueTodo);
-    const overdueItems = todo.overdue();
+  test("Retrieval of Overdue Items", () => {
+    const overdueTask = { title: 'Pay bills', dueDate: '2023-12-12', completed: false };
+    todoList.add(overdueTask);
+    const overdueItems = todoList.overdue();
     expect(overdueItems.length).toBe(1);
-    expect(overdueItems[0]).toEqual(overdueTodo);
+    expect(overdueItems[0]).toEqual(overdueTask);
   });
 
-  test("Retrieval of due today items", () => {
-    const dueTodayTodo = { title: 'Clean room', dueDate: '2023-12-19', completed: false };
-    todo.add(dueTodayTodo);
+  test("Retrieval of Items Due Today", () => {
+    const todayTask = { title: 'Clean room', dueDate: '2023-12-19', completed: false };
+    todoList.add(todayTask);
 
-    const dueTodayItems = todo.dueToday();
+    const todayItems = todoList.dueToday();
 
-    expect(dueTodayItems.length).toBe(1);
-    expect(dueTodayItems[0]).toEqual(dueTodayTodo);
+    expect(todayItems.length).toBe(1);
+    expect(todayItems[0]).toEqual(todayTask);
   });
 
-  test("Retrieval of due later items", () => {
-    const dueLaterTodo = { title: 'Call dentist', dueDate: '2023-12-20', completed: false };
-    todo.add(dueLaterTodo);
+  test("Retrieval of Items Due Later", () => {
+    const futureTask = { title: 'Call dentist', dueDate: '2023-12-20', completed: false };
+    todoList.add(futureTask);
 
-    const dueLaterItems = todo.dueLater();
+    const laterItems = todoList.dueLater();
 
-    expect(dueLaterItems.length).toBe(1);
-    expect(dueLaterItems[0]).toEqual(dueLaterTodo);
+    expect(laterItems.length).toBe(1);
+    expect(laterItems[0]).toEqual(futureTask);
   });
 });
