@@ -1,24 +1,13 @@
-const todoList = require('../todo'); // Import your todo list module
-const today = new Date().toLocaleDateString("en-CA");
-const tomorrow = new Date(Date.now() + 1000 * 60 * 60 * 24).toLocaleDateString("en-CA");
-const overdueDate = '2023-12-15';
-const laterDate = '2025-11-19';
-
 describe("TodoList Test Suite", () => {
     let todoInstance;
 
     beforeEach(() => {
-        // Create a new instance of the todo list before each test
-        todoInstance = todoList();
+        todoInstance = createTodoList();
     });
 
     test("Should add new todo", () => {
         const todoItemsCount = todoInstance.all.length;
-        todoInstance.add({
-            title: "Test todo",
-            completed: false,
-            dueDate: today,
-        });
+        todoInstance.addTodo("Test todo", "2023-12-20"); // Use appropriate due date format
         expect(todoInstance.all.length).toBe(todoItemsCount + 1);
     });
 
