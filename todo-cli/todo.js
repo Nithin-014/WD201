@@ -1,55 +1,63 @@
-const today = new Date().toISOString().split('T')[0];
+const createTodoList = () => {
+    const todoItems = [];
 
-const todoList = () => {
-    const all = [];
-  
-    const add = (todoItem) => {
-      all.push(todoItem);
+    const addTodo = (title, dueDate) => {
+        const newTodo = {
+            title,
+            completed: false,
+            dueDate,
+        };
+        todoItems.push(newTodo);
     };
-  
+
     const markAsComplete = (index) => {
-      all[index].completed = true;
+        if (index >= 0 && index < todoItems.length) {
+            todoItems[index].completed = true;
+        } else {
+            throw new Error('Invalid index');
+        }
     };
-  
-    const overdue = () => {
-      return all.filter((item) => new Date(item.dueDate) < new Date(today));
+
+    const getOverdueTodos = () => {
+        const today = new Date().toISOString().split('T')[0];
+        return todoItems.filter((item) => new Date(item.dueDate) < new Date(today));
     };
-  
-    const dueToday = () => {
-      return all.filter((item) => new Date(item.dueDate).toISOString().split('T')[0] === today);
+
+    const getDueTodayTodos = () => {
+        const today = new Date().toISOString().split('T')[0];
+        return todoItems.filter((item) => new Date(item.dueDate).toISOString().split('T')[0] === today);
     };
-  
-    const dueLater = () => {
-      return all.filter((item) => new Date(item.dueDate) > new Date( today));
+
+    const getDueLaterTodos = () => {
+        const today = new Date().toISOString().split('T')[0];
+        return todoItems.filter((item) => new Date(item.dueDate) > new Date(today));
     };
-  
-    const toDisplayableList = (list) => {
+
+    const displayTodos = (list) => {
         let output = '';
         if (list.length === 0) {
-          return '';
+            return '';
         }
-      
+
         for (const item of list) {
-          output += `[${item.completed ? 'x' : ' '}] ${item.title}`;
-          if (item.dueDate !== today) {
-            output += ` ${formattedDate(new Date(item.dueDate))}`;
-          }
-          output += '\n';
+            output += `[${item.completed ? 'x' : ' '}] ${item.title}`;
+            if (item.dueDate !== today) {
+                output += ` ${formattedDate(new Date(item.dueDate))}`;
+            }
+            output += '\n';
         }
-      
+
         return output.trim();
-      };
-      
-  
-    return {
-      all,
-      add,
-      markAsComplete,
-      overdue,
-      dueToday,
-      dueLater,
-      toDisplayableList,
     };
-  };
-  
- module.exports = todoList;
+
+    return {
+        addTodo,
+        markAsComplete,
+        getOverdueTodos,
+        getDueTodayTodos,
+        getDueLaterTodos,
+        displayTodos,
+    };
+};
+
+module.exports = createTodoList;
